@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="org.cloudsky.cordovaplugins.ipay88" version="0.0.1">
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <name>IPay88</name>
+    <author>TJ Woon (tj@cloudsky.org)</author>
+    <description>Plugin to integrate with iPay88's mobile SDK.</description>
+    <license>Apache 2.0</license>
+    <keywords>ipay88,payment,gateway</keywords>
+
+    <js-module src="www/iPay88.js" name="iPay88">
+        <clobbers target="cloudSky.iPay88" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="IPay88">
+                <param name="android-package" value="org.cloudsky.cordovaPlugins.IPay88"/>
+            </feature>
+        </config-file>
+        <source-file src="android/IPay88.java" target-dir="src/org/cloudsky/cordovaPlugins" />
+        <source-file src="android/ipay88_androidv06.jar" target-dir="libs" />
+    </platform>
+
+</plugin>
