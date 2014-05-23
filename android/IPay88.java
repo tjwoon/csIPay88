@@ -174,7 +174,7 @@ public class IPay88 extends CordovaPlugin {
                 initCanceledResult(); // Default the result to "canceled", as ResultDelegate is not called on backbutton exit.
 
                 argObj = args.getJSONObject(0);
-                payViaIPay88(argObj);
+                payViaIPay88(argObj, callbackContext);
             }
             
             return true;
