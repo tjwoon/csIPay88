@@ -242,7 +242,9 @@ public class IPay88 extends CordovaPlugin {
         );
 
         // Launch the iPay88 activity.
+        // 1st arg to startActivityForResult() must be null, otherwise all WebViews get pause
+        // leading to stuck iPay88 activity??
+        cordova.startActivityForResult(null, checkoutIntent, IPAY88_ACT_REQUEST_CODE);
         cordova.setActivityResultCallback(this);
-        cordova.startActivityForResult(this, checkoutIntent, IPAY88_ACT_REQUEST_CODE);
     }
 }
