@@ -194,26 +194,26 @@ public class IPay88 extends CordovaPlugin {
         r_err = "canceled";
     }
 
-    private void payViaIPay88 (JSONObject args, CallbackContext callbackContext)
+    private void payViaIPay88 (JSONObject argObj, CallbackContext callbackContext)
     throws JSONException
     {
         int amount;
         String name, email, phone, refNo, currency, country,
                description, remark, paymentId, lang, merchantKey, merchantCode;
 
-        amount = arg.getInt("amount");
-        name = arg.getString("name");
-        email = arg.getString("email");
-        phone = arg.getString("phone");
-        refNo = arg.getString("refNo");
-        currency = arg.getString("currency");
-        country = arg.getString("country");
-        description = arg.getString("description");
-        remark = arg.getString("remark");
-        paymentId = arg.getString("paymentId");
-        lang = arg.getString("lang");
-        merchantKey = arg.getString("merchantKey");
-        merchantCode = arg.getString("merchantCode");
+        amount = argObj.getInt("amount");
+        name = argObj.getString("name");
+        email = argObj.getString("email");
+        phone = argObj.getString("phone");
+        refNo = argObj.getString("refNo");
+        currency = argObj.getString("currency");
+        country = argObj.getString("country");
+        description = argObj.getString("description");
+        remark = argObj.getString("remark");
+        paymentId = argObj.getString("paymentId");
+        lang = argObj.getString("lang");
+        merchantKey = argObj.getString("merchantKey");
+        merchantCode = argObj.getString("merchantCode");
 
         // iPay object.
         IpayPayment payment = new IpayPayment();
