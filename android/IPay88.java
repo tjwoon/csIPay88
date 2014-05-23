@@ -1,7 +1,7 @@
 // This code can only handle one payment at any given moment - no concurrent payments
 // are allowed!
 
-package my.com.tgv.app;
+package org.cloudsky.cordovaPlugins;
 
 import org.apache.cordova.api.CordovaInterface;
 import org.apache.cordova.api.CordovaPlugin;
@@ -19,7 +19,7 @@ import android.content.Intent;
 import java.util.Locale;
 import java.io.Serializable;
 
-public class CordovaIPay88 extends CordovaPlugin {
+public class IPay88 extends CordovaPlugin {
     
     // Configuration. CUSTOMISE THIS ACCORDING TO YOUR NEEDS! ----------
 
@@ -38,32 +38,32 @@ public class CordovaIPay88 extends CordovaPlugin {
         
         public void onPaymentSucceeded (String transId, String refNo, String amount, String remarks, String auth)
         {
-            CordovaIPay88.r_status = STATUS_OK;
-            CordovaIPay88.r_transactionId = transId;
-            CordovaIPay88.r_referenceNo = refNo;
-            CordovaIPay88.r_amount = amount;
-            CordovaIPay88.r_remarks = remarks;
-            CordovaIPay88.r_authCode = auth;
+            IPay88.r_status = STATUS_OK;
+            IPay88.r_transactionId = transId;
+            IPay88.r_referenceNo = refNo;
+            IPay88.r_amount = amount;
+            IPay88.r_remarks = remarks;
+            IPay88.r_authCode = auth;
         }
         
         public void onPaymentFailed (String transId, String refNo, String amount, String remarks, String err)
         {
-            CordovaIPay88.r_status = STATUS_FAILED;
-            CordovaIPay88.r_transactionId = transId;
-            CordovaIPay88.r_referenceNo = refNo;
-            CordovaIPay88.r_amount = amount;
-            CordovaIPay88.r_remarks = remarks;
-            CordovaIPay88.r_err = err;
+            IPay88.r_status = STATUS_FAILED;
+            IPay88.r_transactionId = transId;
+            IPay88.r_referenceNo = refNo;
+            IPay88.r_amount = amount;
+            IPay88.r_remarks = remarks;
+            IPay88.r_err = err;
         }
 
         public void onPaymentCanceled (String transId, String refNo, String amount, String remarks, String errDesc)
         {
-            CordovaIPay88.r_status = STATUS_CANCELED;
-            CordovaIPay88.r_transactionId = transId;
-            CordovaIPay88.r_referenceNo = refNo;
-            CordovaIPay88.r_amount = amount;
-            CordovaIPay88.r_remarks = remarks;
-            CordovaIPay88.r_err = "canceled";
+            IPay88.r_status = STATUS_CANCELED;
+            IPay88.r_transactionId = transId;
+            IPay88.r_referenceNo = refNo;
+            IPay88.r_amount = amount;
+            IPay88.r_remarks = remarks;
+            IPay88.r_err = "canceled";
         }
     }
 
