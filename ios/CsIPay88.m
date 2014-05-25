@@ -11,15 +11,12 @@ bool paymentInProgress;
 {
   paymentInProgress = false;
   [self.commandDelegate sendPluginResult:result callbackId:callbackId];
-  [paymentView release];
-  [callbackId release];
 }
 
 // makepayment entry point
 - (void)makepayment: (CDVInvokedUrlCommand*)command
 {
   callbackId = [command callbackId];
-  [callbackId retain];
 
   if(paymentInProgress) {
     [self sendResult: [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"A payment is already in progress."]];
@@ -77,7 +74,6 @@ bool paymentInProgress;
   Ipay *paymentsdk = [[Ipay alloc] init];
   paymentsdk.delegate = self;
   paymentView = [paymentsdk checkout:payment];
-  [paymentView retain];
   
   // Transfer control to iPay88 View.
   [self.webView addSubview:paymentView];
