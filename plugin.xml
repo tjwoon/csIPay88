@@ -18,7 +18,7 @@
 
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="IPay88">
+            <feature name="CsIPay88">
                 <param name="android-package" value="org.cloudsky.cordovaPlugins.IPay88"/>
             </feature>
         </config-file>

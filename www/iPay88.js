@@ -48,8 +48,8 @@ IPay88.prototype = {
     // }
     makePayment: function (params, success, error)
     {
-        argscheck.checkArgs('ofF', 'iPay88.makePayment', arguments);
-        exec(success, error, 'IPay88', 'makepayment', [params]);
+        argscheck.checkArgs('ofF', 'CsIPay88.makePayment', arguments);
+        exec(success, error, 'CsIPay88', 'makepayment', [params]);
     },
 
 };
