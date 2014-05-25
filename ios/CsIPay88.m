@@ -1,28 +1,38 @@
 #import "CsIPay88.h"
 
+
+@interface CsIPay88 ()
+
+@property UIView *paymentView;
+@property NSString *callbackId;
+@property bool paymentInProgress;
+
+@end
+
+
 @implementation CsIPay88
 
-UIView *paymentView;
-NSString *callbackId;
-bool paymentInProgress;
+@synthesize paymentView;
+@synthesize callbackId;
+@synthesize paymentInProgress;
 
 // Helper
 - (void)sendResult: (CDVPluginResult*)result
 {
-  paymentInProgress = false;
-  [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+  self.paymentInProgress = false;
+  [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
 }
 
 // makepayment entry point
 - (void)makepayment: (CDVInvokedUrlCommand*)command
 {
-  callbackId = [command callbackId];
+  self.callbackId = [command callbackId];
 
-  if(paymentInProgress) {
+  if(self.paymentInProgress) {
     [self sendResult: [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"A payment is already in progress."]];
     return;
   }
-  paymentInProgress = true;
+  self.paymentInProgress = true;
 
   NSDictionary *args = (NSDictionary*) [command argumentAtIndex:0 withDefault:nil andClass:[NSDictionary class]];
   if(args == nil) {
@@ -73,10 +83,10 @@ bool paymentInProgress;
   // Create iPay88 View.
   Ipay *paymentsdk = [[Ipay alloc] init];
   paymentsdk.delegate = self;
-  paymentView = [paymentsdk checkout:payment];
+  self.paymentView = [paymentsdk checkout:payment];
   
   // Transfer control to iPay88 View.
-  [self.webView addSubview:paymentView];
+  [self.webView addSubview:self.paymentView];
 }
 
 
@@ -84,7 +94,7 @@ bool paymentInProgress;
 
 - (void)paymentSuccess:(NSString *)refNo withTransId:(NSString *)transId withAmount:(NSString *)amount withRemark:(NSString *)remark withAuthCode:(NSString *)authCode
 {
-  [paymentView removeFromSuperview];
+  [self.paymentView removeFromSuperview];
   NSArray *keys = [NSArray arrayWithObjects:@"transactionId", @"referenceNo", @"amount", @"remarks", @"authCode", nil];
   NSArray *objects = [NSArray arrayWithObjects:transId, refNo, amount, remark, authCode, nil];
   NSDictionary *result = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
@@ -93,7 +103,7 @@ bool paymentInProgress;
 
 - (void)paymentFailed:(NSString *)refNo withTransId:(NSString *)transId withAmount:(NSString *)amount withRemark:(NSString *)remark withErrDesc:(NSString *)errDesc
 {
-  [paymentView removeFromSuperview];
+  [self.paymentView removeFromSuperview];
   NSArray *keys = [NSArray arrayWithObjects:@"transactionId", @"referenceNo", @"amount", @"remarks", @"err", nil];
   NSArray *objects = [NSArray arrayWithObjects:transId, refNo, amount, remark, errDesc, nil];
   NSDictionary *result = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
@@ -102,7 +112,7 @@ bool paymentInProgress;
 
 - (void)paymentCancelled:(NSString *)refNo withTransId:(NSString *)transId withAmount:(NSString *)amount withRemark:(NSString *)remark withErrDesc:(NSString *)errDesc
 {
-  [paymentView removeFromSuperview];
+  [self.paymentView removeFromSuperview];
   NSArray *keys = [NSArray arrayWithObjects:@"transactionId", @"referenceNo", @"amount", @"remarks", @"err", nil];
   NSArray *objects = [NSArray arrayWithObjects:transId, refNo, amount, remark, @"canceled", nil];
   NSDictionary *result = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
