@@ -26,4 +26,15 @@
         <source-file src="android/ipay88_androidv06.jar" target-dir="libs" />
     </platform>
 
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CsIPay88">
+                <param name="ios-package" value="CsIPay88"/>
+            </feature>
+        </config-file>
+        <header-file src="ios/CsDeviceInfo.h" />
+        <source-file src="ios/CsDeviceInfo.m" />
+        <source-file src="ios/libipay88sdk.a" framework="true" />
+    </platform>
+
 </plugin>
