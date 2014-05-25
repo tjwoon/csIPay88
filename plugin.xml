@@ -32,6 +32,8 @@
                 <param name="ios-package" value="CsIPay88"/>
             </feature>
         </config-file>
+        <header-file src="ios/Ipay.h" />
+        <header-file src="ios/IpayPayment.h" />
         <header-file src="ios/CsIPay88.h" />
         <source-file src="ios/CsIPay88.m" />
         <source-file src="ios/libipay88sdk.a" framework="true" />
