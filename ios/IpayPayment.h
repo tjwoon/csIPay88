@@ -17,6 +17,7 @@
     NSString *remark;
     NSString *lang;
     NSString *country;
+    NSString *backendPostURL;
 }
 
 @property (nonatomic, retain) NSString *merchantKey;
@@ -32,5 +33,6 @@
 @property (nonatomic, retain) NSString *remark;
 @property (nonatomic, retain) NSString *lang;
 @property (nonatomic, retain) NSString *country;
+@property (nonatomic, retain) NSString *backendPostURL;
 
 @end
