@@ -3,6 +3,7 @@
 
 @interface CsIPay88 ()
 
+@property Ipay *paymentSdk;
 @property UIView *paymentView;
 @property NSString *callbackId;
 @property bool paymentInProgress;
@@ -12,6 +13,7 @@
 
 @implementation CsIPay88
 
+@synthesize paymentSdk;
 @synthesize paymentView;
 @synthesize callbackId;
 @synthesize paymentInProgress;
@@ -81,9 +83,9 @@
   [payment setCountry:country];
   
   // Create iPay88 View.
-  Ipay *paymentsdk = [[Ipay alloc] init];
-  paymentsdk.delegate = self;
-  self.paymentView = [paymentsdk checkout:payment];
+  self.paymentSdk = [[Ipay alloc] init];
+  self.paymentSdk.delegate = self;
+  self.paymentView = [self.paymentSdk checkout:payment];
   
   // Transfer control to iPay88 View.
   [self.webView addSubview:self.paymentView];
