@@ -21,6 +21,9 @@
             <feature name="CsIPay88">
                 <param name="android-package" value="org.cloudsky.cordovaPlugins.IPay88"/>
             </feature>
+            <access origin="https://uat-mobile-payment.ipay88.com:8243" />
+            <access origin="https://www.mobile88.com" />
+            <access origin="https://*" /><!-- Bank websites... -->
         </config-file>
         <source-file src="android/IPay88.java" target-dir="src/org/cloudsky/cordovaPlugins" />
         <source-file src="android/ipay88_androidv06.jar" target-dir="libs" />
@@ -31,6 +34,9 @@
             <feature name="CsIPay88">
                 <param name="ios-package" value="CsIPay88"/>
             </feature>
+            <access origin="https://uat-mobile-payment.ipay88.com:8243" />
+            <access origin="https://www.mobile88.com" />
+            <access origin="https://*" /><!-- Bank websites... -->
         </config-file>
         <header-file src="ios/Ipay.h" />
         <header-file src="ios/IpayPayment.h" />
