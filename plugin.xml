@@ -30,6 +30,10 @@
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
         </config-file>
+        <config-file target="AndroidManifest.xml" parent="application">
+            <activity android:name="com.ipay.IpayAcitivity" android:configChanges="orientation|screenSize" />
+            <activity android:name="com.ipay.IpayAcitivityR" android:configChanges="orientation|screenSize" />
+        </config-file>
         <source-file src="android/IPay88.java" target-dir="src/org/cloudsky/cordovaPlugins" />
         <source-file src="android/ipay88_androidv7.jar" target-dir="libs" />
     </platform>
