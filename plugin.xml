@@ -25,6 +25,11 @@
             <access origin="https://www.mobile88.com" />
             <access origin="https://*" /><!-- Bank websites... -->
         </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        </config-file>
         <source-file src="android/IPay88.java" target-dir="src/org/cloudsky/cordovaPlugins" />
         <source-file src="android/ipay88_androidv06.jar" target-dir="libs" />
     </platform>
