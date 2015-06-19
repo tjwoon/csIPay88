@@ -134,12 +134,11 @@ public class IPay88 extends CordovaPlugin {
             } else {
                 JSONObject argObj;
                 
-                isInProgress = true;
                 cordovaCallbackContext = callbackContext;
                 initCanceledResult(); // Default the result to "canceled", as ResultDelegate is not called on backbutton exit.
 
                 argObj = args.getJSONObject(0);
-                payViaIPay88(argObj, callbackContext);
+                payViaIPay88(argObj);
             }
             
             return true;
@@ -159,7 +158,7 @@ public class IPay88 extends CordovaPlugin {
         r_err = "canceled";
     }
 
-    private void payViaIPay88 (JSONObject argObj, CallbackContext callbackContext)
+    private void payViaIPay88 (JSONObject argObj)
     throws JSONException
     {
         int amount;
@@ -167,20 +166,25 @@ public class IPay88 extends CordovaPlugin {
                description, remark, paymentId, lang, merchantKey, merchantCode,
                backendPostUrl;
 
-        amount = argObj.getInt("amount");
-        name = argObj.getString("name");
-        email = argObj.getString("email");
-        phone = argObj.getString("phone");
-        refNo = argObj.getString("refNo");
-        currency = argObj.getString("currency");
-        country = argObj.getString("country");
-        description = argObj.getString("description");
-        remark = argObj.getString("remark");
-        paymentId = argObj.getString("paymentId");
-        lang = argObj.getString("lang");
-        merchantKey = argObj.getString("merchantKey");
-        merchantCode = argObj.getString("merchantCode");
-        backendPostUrl = argObj.getString("backendPostUrl");
+        try {
+            amount = argObj.getInt("amount");
+            name = argObj.getString("name");
+            email = argObj.getString("email");
+            phone = argObj.getString("phone");
+            refNo = argObj.getString("refNo");
+            currency = argObj.getString("currency");
+            country = argObj.getString("country");
+            description = argObj.getString("description");
+            remark = argObj.getString("remark");
+            paymentId = argObj.getString("paymentId");
+            lang = argObj.getString("lang");
+            merchantKey = argObj.getString("merchantKey");
+            merchantCode = argObj.getString("merchantCode");
+            backendPostUrl = argObj.getString("backendPostUrl");
+        } catch (Exception e) {
+            cordovaCallbackContext.error("Required parameter missing or invalid. "+e.getMessage());
+            return;
+        }
 
         // iPay object.
         IpayPayment payment = new IpayPayment();
@@ -212,6 +216,7 @@ public class IPay88 extends CordovaPlugin {
         // Launch the iPay88 activity.
         // 1st arg to startActivityForResult() must be null, otherwise all WebViews get pause
         // leading to stuck iPay88 activity??
+        isInProgress = true;
         cordova.startActivityForResult(null, checkoutIntent, IPAY88_ACT_REQUEST_CODE);
         cordova.setActivityResultCallback(this);
     }
