@@ -157,7 +157,8 @@ public class IPay88 extends CordovaPlugin {
     {
         int amount;
         String name, email, phone, refNo, currency, country,
-               description, remark, paymentId, lang, merchantKey, merchantCode;
+               description, remark, paymentId, lang, merchantKey, merchantCode,
+               backendPostUrl;
 
         amount = argObj.getInt("amount");
         name = argObj.getString("name");
@@ -172,6 +173,7 @@ public class IPay88 extends CordovaPlugin {
         lang = argObj.getString("lang");
         merchantKey = argObj.getString("merchantKey");
         merchantCode = argObj.getString("merchantCode");
+        backendPostUrl = argObj.getString("backendPostUrl");
 
         // iPay object.
         IpayPayment payment = new IpayPayment();
@@ -188,6 +190,7 @@ public class IPay88 extends CordovaPlugin {
         payment.setRemark(remark);
         payment.setPaymentId(paymentId);
         payment.setLang(lang);
+        payment.setBackendPostURL(backendPostUrl);
         
         // Create and save the iPay88 results delegate.
         iPayDelegate = new ResultDelegate(); 

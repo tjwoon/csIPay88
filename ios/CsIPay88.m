@@ -56,9 +56,11 @@
   NSString *lang = [args objectForKey:@"lang"];
   NSString *merchantKey = [args objectForKey:@"merchantKey"];
   NSString *merchantCode = [args objectForKey:@"merchantCode"];
+  NSString *backendPostUrl = [args objectForKey:@"backendPostUrl"];
   if(amount == nil || name == nil || email == nil || phone == nil || refNo == nil
     || currency == nil || country == nil || description == nil || remark == nil || paymentId == nil
     || lang == nil || merchantKey == nil || merchantCode == nil
+    || backendPostUrl == nil
   ) {
     [self sendResult: [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Required arguments are missing."]];
     return;
@@ -81,6 +83,7 @@
   [payment setRemark:remark];
   [payment setLang:lang];
   [payment setCountry:country];
+  [payment setBackendPostURL:backendPostUrl];
   
   // Create iPay88 View.
   self.paymentSdk = [[Ipay alloc] init];

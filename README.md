@@ -27,6 +27,8 @@ cloudSky.iPay88.makePayment(
         paymentId: "ipay payment id"
         merchantKey: "ipay merchant key"
         merchantCode: "ipay merchant code"
+        backendPostUrl: "http://..." // The URL which iPay will call from their
+            // servers upon successful payment.
     },
     function (resp) {
         // Success callback

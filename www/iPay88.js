@@ -23,6 +23,7 @@ IPay88.prototype = {
     //     paymentId: "ipay payment id"
     //     merchantKey: "ipay merchant key"
     //     merchantCode: "ipay merchant code"
+    //     backendPostUrl: "backend POST URL"
     //   }
     // ]
     // 
