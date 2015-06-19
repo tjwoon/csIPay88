@@ -65,6 +65,13 @@ public class IPay88 extends CordovaPlugin {
             IPay88.r_remarks = remarks;
             IPay88.r_err = "canceled";
         }
+
+        public void onRequeryResult (String merchantCode, String refNo, String amount, String result)
+        {
+            // TODO warning, this is a stub to satisfy superclass interface
+            // requirements. We do not yet have any meaningful support for
+            // requery in this Cordova library yet.
+        }
     }
 
     
