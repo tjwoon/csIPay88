@@ -31,7 +31,7 @@
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
         </config-file>
         <source-file src="android/IPay88.java" target-dir="src/org/cloudsky/cordovaPlugins" />
-        <source-file src="android/ipay88_androidv06.jar" target-dir="libs" />
+        <source-file src="android/ipay88_androidv7.jar" target-dir="libs" />
     </platform>
 
     <platform name="ios">
