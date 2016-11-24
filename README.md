@@ -3,6 +3,10 @@ CsIPay88
 
 Cordova Library for integrating with the iPay88 payment gateway's mobile SDK.
 
+This plugin will automatically request for READ_PHONE_STATE permission on
+Android, if it is not already granted (iPay88 SDK requires it).
+
+
 Installation
 ------------
 

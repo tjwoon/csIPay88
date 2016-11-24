@@ -16,6 +16,8 @@ import com.ipay.IpayPayment;
 import com.ipay.IpayResultDelegate;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.Manifest;
 import java.util.Locale;
 import java.io.Serializable;
 
@@ -24,7 +26,13 @@ public class IPay88 extends CordovaPlugin {
     // Configuration. CUSTOMISE THIS ACCORDING TO YOUR NEEDS! ----------
 
     public static int IPAY88_ACT_REQUEST_CODE = 88;
-    
+    public static int REQUEST_PERMISSION_REQUEST_CODE = 87;
+
+
+    // Constants
+
+    private static final String PHONE = Manifest.permission.READ_PHONE_STATE;
+
 
     // iPay88 results receiver -----------------------------------------
 
@@ -89,10 +97,34 @@ public class IPay88 extends CordovaPlugin {
 
     private ResultDelegate iPayDelegate;
     private CallbackContext cordovaCallbackContext;
+    
+    private JSONObject iPayArgObj;
 
 
     // Methods ---------------------------------------------------------
     
+    @Override
+    public void onRequestPermissionResult (
+        int requestCode,
+        String[] permissions,
+        int[] grantResults
+    )
+    throws JSONException
+    {
+        for(int r:grantResults)
+        {
+            if(r == PackageManager.PERMISSION_DENIED)
+            {
+                cordovaCallbackContext.error("Permission denied");
+                return;
+            }
+        }
+
+        if(requestCode == REQUEST_PERMISSION_REQUEST_CODE) {
+            payViaIPay88();
+        }
+    }
+
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent intent)
     {
@@ -132,13 +164,14 @@ public class IPay88 extends CordovaPlugin {
             if(isInProgress) {
                 callbackContext.error("Another payment is in progress!");
             } else {
-                JSONObject argObj;
-                
                 cordovaCallbackContext = callbackContext;
-                initCanceledResult(); // Default the result to "canceled", as ResultDelegate is not called on backbutton exit.
+                iPayArgObj = args.getJSONObject(0);
 
-                argObj = args.getJSONObject(0);
-                payViaIPay88(argObj);
+                if(!cordova.hasPermission(PHONE)) {
+                    cordova.requestPermission(this, REQUEST_PERMISSION_REQUEST_CODE, PHONE);
+                } else {
+                    payViaIPay88();
+                }
             }
             
             return true;
@@ -158,29 +191,30 @@ public class IPay88 extends CordovaPlugin {
         r_err = "canceled";
     }
 
-    private void payViaIPay88 (JSONObject argObj)
-    throws JSONException
+    private void payViaIPay88 ()
     {
         int amount;
         String name, email, phone, refNo, currency, country,
                description, remark, paymentId, lang, merchantKey, merchantCode,
                backendPostUrl;
 
+        initCanceledResult(); // Default the result to "canceled", as ResultDelegate is not called on backbutton exit.
+
         try {
-            amount = argObj.getInt("amount");
-            name = argObj.getString("name");
-            email = argObj.getString("email");
-            phone = argObj.getString("phone");
-            refNo = argObj.getString("refNo");
-            currency = argObj.getString("currency");
-            country = argObj.getString("country");
-            description = argObj.getString("description");
-            remark = argObj.getString("remark");
-            paymentId = argObj.getString("paymentId");
-            lang = argObj.getString("lang");
-            merchantKey = argObj.getString("merchantKey");
-            merchantCode = argObj.getString("merchantCode");
-            backendPostUrl = argObj.getString("backendPostUrl");
+            amount = iPayArgObj.getInt("amount");
+            name = iPayArgObj.getString("name");
+            email = iPayArgObj.getString("email");
+            phone = iPayArgObj.getString("phone");
+            refNo = iPayArgObj.getString("refNo");
+            currency = iPayArgObj.getString("currency");
+            country = iPayArgObj.getString("country");
+            description = iPayArgObj.getString("description");
+            remark = iPayArgObj.getString("remark");
+            paymentId = iPayArgObj.getString("paymentId");
+            lang = iPayArgObj.getString("lang");
+            merchantKey = iPayArgObj.getString("merchantKey");
+            merchantCode = iPayArgObj.getString("merchantCode");
+            backendPostUrl = iPayArgObj.getString("backendPostUrl");
         } catch (Exception e) {
             cordovaCallbackContext.error("Required parameter missing or invalid. "+e.getMessage());
             return;
