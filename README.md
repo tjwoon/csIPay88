@@ -42,7 +42,7 @@ cloudSky.iPay88.makePayment(
     },
     function (err) {
         // Failure callback
-        // err = "unexpected error string" OR
+        // err = "some error string" OR
         // err = {
         //     transactionId: transId,
         //     referenceNo: refNo,
