@@ -18,6 +18,7 @@ import com.ipay.IpayResultDelegate;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.Manifest;
+import android.os.Bundle;
 import java.util.Locale;
 import java.io.Serializable;
 
