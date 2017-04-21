@@ -57,3 +57,31 @@ cloudSky.iPay88.makePayment(
     }
 )
 ```
+
+### Special Android notes
+
+Android may kill your Cordova activity while your user is in the iPay88 activity.
+When this happens, payment results will NOT be sent to the JavaScript callback
+which you passed to the other methods (above). Instead, it will be sent to your
+app with the "resume" Cordova event.
+
+```javacript
+document.addEventListener("resume", function (event) {
+    /* Event:
+        {
+            action: "resume",
+            pendingResult: {
+                pluginServiceName: "IPay88",
+                pluginStatus: "OK", // or "Error", etc.
+                result: ... // same result that would have been passed to
+                    // your normal callback function.
+            }
+        }
+    */
+}, false)
+```
+
+See also:
+
+- https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#lifecycle-guide
+- https://cordova.apache.org/docs/en/latest/guide/platforms/android/plugin.html#launching-other-activities
