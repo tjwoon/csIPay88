@@ -10,7 +10,7 @@ Android, if it is not already granted (iPay88 SDK requires it).
 Installation
 ------------
 
-`cordova plugin add org.cloudsky.cordovaplugins.ipay88`
+`cordova plugin add cordova-plugin-ipay88`
 
 Usage
 -----
